@@ -218,8 +218,13 @@ const ExpiredMemberships = () => {
 
   const handleWhatsAppClick = (phone: string) => {
     // Format phone number to remove any non-digit characters
-    const formattedPhone = phone.replace(/\D/g, '');
-    // Construct WhatsApp URL (using international format, assuming phone number is valid)
+    let formattedPhone = phone.replace(/\D/g, '');
+
+    // Check if the number already starts with +91 or 91
+    if (!formattedPhone.startsWith('91')) {
+      formattedPhone = '91' + formattedPhone; // Prepend 91 if not present
+    }
+    // Ensure it starts with the international dialing code for WhatsApp
     const whatsappUrl = `https://wa.me/${formattedPhone}`;
     // Open WhatsApp chat in a new tab
     window.open(whatsappUrl, '_blank');
